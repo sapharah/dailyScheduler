@@ -404,7 +404,7 @@ span {
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
 }
 
-.sidenav ul, a, label {
+.sidenav ul, a, #day {
     padding: 8px 8px 8px 60px;
     text-decoration: none;
     font-size: 20px;

@@ -3,7 +3,8 @@
 		<meta charset="utf-8">
 		<meta name="description" content="Sphere simplifies your life through automation.">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0001">
-		<link rel="icon" type="image/png" href="/images/icon.png">
+		<link rel="icon" type="image/png" href="images/icon.png">
+        <link rel="icon" type="image/png" href="images/logo.png">
 		<link href="style/screen.css" rel="stylesheet" type="text/css" media="screen">
         <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.22/themes/redmond/jquery-ui.css" />
         <link rel="stylesheet" type="text/css" href="style/jquery.ptTimeSelect.css">
@@ -1103,7 +1104,7 @@
         
         <div id="mySidenav" class="sidenav">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <label>Day</label>
+            <label id="day">Day</label>
             <select id="days">
                 <option value="sun">Sunday</option>
                 <option value="mon">Monday</option>
@@ -1124,10 +1125,11 @@
 		<script type="text/javascript" src="js/no-touch.js"></script> 
 		<script type="text/javascript" src="js/shiftcheckbox.js"></script>
 		<script type="text/javascript" src="js/dragcheckbox.js"></script>
-        <!-- I've added a script src here  -->
-        <script src="//rawgit.com/ngryman/jquery.finger/v0.1.2/dist/jquery.finger.js"></script>
+        <!-- I've added my script sources here  -->
+        <script src="js/jquery.finger.js"></script>
         <script src="https://hammerjs.github.io/dist/hammer.js"></script>
         <script src="js/jquery.ptTimeSelect.js"></script>
+        <script src="js/moment.js"></script>
         
 
         
@@ -1136,15 +1138,16 @@
         <script>
             
             function openNav() {
-    document.getElementById("mySidenav").style.width = "300px";
-}
+                document.getElementById("mySidenav").style.width = "300px";
+            }
 
-/* Set the width of the side navigation to 0 */
-function closeNav() {
-    document.getElementById("mySidenav").style.width = "0";
-}
+            /* Set the width of the side navigation to 0 */
+            function closeNav() {
+                document.getElementById("mySidenav").style.width = "0";
+            }
             
             
+            /* hammer.js detects if there is a "press"(tap and hold) anywhere on the boxes */
             
             var elements = document.getElementsByClassName('time checkbox');
 
@@ -1156,40 +1159,57 @@ function closeNav() {
                 })
             });
             
+            /* This enables time selector widget */
+            
             $(document).ready(function(){
                 $('input[name="sTime"]').ptTimeSelect();
                 $('input[name="eTime"]').ptTimeSelect();
             });
             
+            /* This is what hapens when you tap the submit button */
             
             function send(){
                 var startTime = $("#beginTime").val();
                 var endTime = $("#endTime").val();
                 var day = $("#days").val();
-                //var startRes = startTime.split(":");
-                //var endRes = endTime.split(":");
-                alert( day + " " + startTime);
-                alert(day + " " + endTime);
+                var times = intervals(startTime,endTime);
+                var results = [];
+                for (var i = 0; i < times.length; i ++){
+                    var separators = [' ', ':']; 
+                    results.push(times[i].split(new RegExp('[' + separators.join('') + ']', 'g')));
+                    results[i] = results[i].join('');
+                    var remove = results[i].search('00');
+                    if (remove >= 0){
+                        results[i] = results[i].replace("00", "");    
+                    }
+                    var id = day+results[i];
+                    document.getElementById(id).checked = true;
+                }
+            }
+            
+            /* This function creates the 30 minute intervals between the selected times */
+            
+            function intervals(startString, endString) {
+                var start = moment(startString, 'h:mm A');
+                var end = moment(endString, 'h:mm A');
+
+                // round starting minutes up to nearest 15 (12 --> 15, 17 --> 30)
+                // note that 59 will round up to 60, and moment.js handles that correctly
+                start.minutes(Math.ceil(start.minutes() / 30) * 30);
+
+                var result = [];
+
+                var current = moment(start);
+
+                while (current <= end) {
+                    result.push(current.format('h:mm a'));
+                    current.add(30, 'minutes');
+                }
+
+                return result;
             };
             
             
-
-            
-//            if (openNav){
-//                var startTime = ("#beginTime").val();
-//                var endTime = ("#endTime").val();
-//                var time="12:30 am";
-//                var startTimeArray = startTime.split(" ");
-//                startTimeArray = startTimeArray[0].split(":");
-//                alert(parseInt(timeArray[0])*60+parseInt(timeArray[1]));
-//            };
-//        
-            
- 
-            
-       
-            
-
         </script>
 	
 </body></html>
