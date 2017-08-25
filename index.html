@@ -1192,9 +1192,16 @@
             /* This function creates the 30 minute intervals between the selected times */
             
             function intervals(startString, endString) {
-                var start = moment(startString, 'h:mm A');
-                var end = moment(endString, 'h:mm A');
-
+                try {
+                    var start = moment(startString, 'h:mm A');
+                    var end = moment(endString, 'h:mm A');
+                    if (start.isAfter(end)){
+                        throw 'myException'
+                    }
+                }
+                catch(e){
+                    alert("Your begin time is later than your end time");
+                }
                 // round starting minutes up to nearest 15 (12 --> 15, 17 --> 30)
                 // note that 59 will round up to 60, and moment.js handles that correctly
                 start.minutes(Math.ceil(start.minutes() / 30) * 30);
