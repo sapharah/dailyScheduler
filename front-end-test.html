@@ -1,16 +1,17 @@
-<html lang="en-US"><head>
+<!doctype html>
+<html lang="en-US">
+	
+<!-- Mirrored from www.sphere.ms/front-end-test by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 25 Aug 2017 15:34:01 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
 		<title>Sphere - Simplifying Life</title>
 		<meta charset="utf-8">
-		<meta name="description" content="Sphere simplifies your life through automation.">
+		<meta name="description" content="Sphere simplifies your life through automation."/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0001">
-		<link rel="icon" type="image/png" href="images/icon.png">
-        <link rel="icon" type="image/png" href="images/logo.png">
-		<link href="style/screen.css" rel="stylesheet" type="text/css" media="screen">
-        <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.22/themes/redmond/jquery-ui.css" />
-        <link rel="stylesheet" type="text/css" href="style/jquery.ptTimeSelect.css">
-
+		<link rel="icon" type="image/png" href="images/icon.png"/>
+		<link href="style/screen.css" rel="stylesheet" type="text/css" media="screen"/>
 	</head>
-	<body cz-shortcut-listen="true">
+	<body>
 		<header class="nav-height">
 			<h1 id="logo">Sphere</h1>
 			<nav id="top">
@@ -1100,116 +1101,11 @@
 			<div class="padding"></div>
 			</div>
 		</div>
-        <!-- Menu Here -->
-        
-        <div id="mySidenav" class="sidenav">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <label id="day">Day</label>
-            <select id="days">
-                <option value="sun">Sunday</option>
-                <option value="mon">Monday</option>
-                <option value="tue">Tuesday</option>
-                <option value="wed">Wednesday</option>
-                <option value="thu">Thursday</option>
-                <option value="fri">Friday</option>
-                <option value="sat">Saturday</option>
-            </select>
-            <ul><p>Begin time: </p><input id="beginTime" name="sTime"class="times"> </ul>
-            <ul><p>End time: </p><input id="endTime" name="eTime" class="times"></ul>
-            <ul><button type="submit" id="submit" onclick= "send()" >Submit</button></ul>
-            
-        </div>
-        
-        
 		<script type="text/javascript" src="js/jquery.min.js"></script>
 		<script type="text/javascript" src="js/no-touch.js"></script> 
 		<script type="text/javascript" src="js/shiftcheckbox.js"></script>
 		<script type="text/javascript" src="js/dragcheckbox.js"></script>
-        <!-- I've added my script sources here  -->
-        <script src="js/jquery.finger.js"></script>
-        <script src="https://hammerjs.github.io/dist/hammer.js"></script>
-        <script src="js/jquery.ptTimeSelect.js"></script>
-        <script src="js/moment.js"></script>
-        
+	</body>
 
-        
-        
-        <!-- My script here -->
-        <script>
-            
-            function openNav() {
-                document.getElementById("mySidenav").style.width = "300px";
-            }
-
-            /* Set the width of the side navigation to 0 */
-            function closeNav() {
-                document.getElementById("mySidenav").style.width = "0";
-            }
-            
-            
-            /* hammer.js detects if there is a "press"(tap and hold) anywhere on the boxes */
-            
-            var elements = document.getElementsByClassName('time checkbox');
-
-            [].slice.call(elements).forEach(function(element) {
-                var hammertime = new Hammer(element);
-                hammertime.on('press', function(event) {
-                    openNav(); 
-                    
-                })
-            });
-            
-            /* This enables time selector widget */
-            
-            $(document).ready(function(){
-                $('input[name="sTime"]').ptTimeSelect();
-                $('input[name="eTime"]').ptTimeSelect();
-            });
-            
-            /* This is what hapens when you tap the submit button */
-            
-            function send(){
-                var startTime = $("#beginTime").val();
-                var endTime = $("#endTime").val();
-                var day = $("#days").val();
-                var times = intervals(startTime,endTime);
-                var results = [];
-                for (var i = 0; i < times.length; i ++){
-                    var separators = [' ', ':']; 
-                    results.push(times[i].split(new RegExp('[' + separators.join('') + ']', 'g')));
-                    results[i] = results[i].join('');
-                    var remove = results[i].search('00');
-                    if (remove >= 0){
-                        results[i] = results[i].replace("00", "");    
-                    }
-                    var id = day+results[i];
-                    document.getElementById(id).checked = true;
-                }
-            }
-            
-            /* This function creates the 30 minute intervals between the selected times */
-            
-            function intervals(startString, endString) {
-                var start = moment(startString, 'h:mm A');
-                var end = moment(endString, 'h:mm A');
-
-                // round starting minutes up to nearest 15 (12 --> 15, 17 --> 30)
-                // note that 59 will round up to 60, and moment.js handles that correctly
-                start.minutes(Math.ceil(start.minutes() / 30) * 30);
-
-                var result = [];
-
-                var current = moment(start);
-
-                while (current <= end) {
-                    result.push(current.format('h:mm a'));
-                    current.add(30, 'minutes');
-                }
-
-                return result;
-            };
-            
-            
-        </script>
-	
-</body></html>
+<!-- Mirrored from www.sphere.ms/front-end-test by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 25 Aug 2017 15:34:09 GMT -->
+</html>

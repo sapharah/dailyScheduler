@@ -171,7 +171,7 @@ span {
 	float: right;
 	margin-top: 7px; /* needs changing: should be vertical aligned instead */
 	margin-right: 3%; /* why needed with #top padding? */
-	background: url(/images/logo.png) center no-repeat;
+	background: url(../images/logo.png) center no-repeat;
 	background-size: 170px 50px;
 	height: 50px;
 	width: 170px;
@@ -206,7 +206,7 @@ span {
 	font-size: 0;
 	text-decoration: none;
 	cursor: pointer;
-	background: url(/images/arrow.png) no-repeat 15px 23px #448;
+	background: url(../images/arrow.png) no-repeat 15px 23px #448;
 	padding: 30px;
 } /* needs changing: shouldn't be space on the left */
 
@@ -381,55 +381,4 @@ span {
 
 .box-title {
 	font-size: 1.5em;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  font-family: 'Open Sans', sans-serif;
-}
- 
-/* my added code */
-
-.sidenav {
-    height: 100%; /* 100% Full-height */
-    width: 0; /* 0 width - change this with JavaScript */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Stay on top */
-    top: 0;
-    left: 0;
-    background-color: #111; /* Black*/
-    overflow-x: hidden; /* Disable horizontal scroll */
-    padding-top: 60px; /* Place content 60px from the top */
-    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
-}
-
-.sidenav ul, a, #day {
-    padding: 8px 8px 8px 60px;
-    text-decoration: none;
-    font-size: 20px;
-    color: #818181;
-    display: block;
-    transition: 0.3s;
-    margin-left: 20px;
-}
-
-.times {
-    height: 8%;
-    font-size: 30px;
-    width: 57%;
-    
-    
-}
-
-select {
-    width: 57%;
-    height: 8%;
-    margin-left: 80px;
-    font-size: 20px;
-}
-
-@media screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;}
-    .sidenav a {font-size: 18px;}
 }
